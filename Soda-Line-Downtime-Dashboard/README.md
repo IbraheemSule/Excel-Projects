@@ -1,104 +1,246 @@
-# Soda Bottling Line — Downtime & Efficiency Dashboard
+# Soda Line Downtime Dashboard
 
-An end-to-end Excel analytics project: raw CSV exports are cleaned, modeled, and turned into a KPI dashboard that explains where a bottling line is losing time and what to do about it.
+## Project Overview
 
-**Pipeline:** Data Cleaning → KPIs → PivotTables → Charts → Dashboard → Business Insights
+The **Soda Line Downtime Dashboard** is an Excel-based business intelligence project designed to analyze production downtime and identify the major factors affecting the efficiency of a soda manufacturing line.
 
-![Dashboard preview](readme_assets/dashboard_preview.png)
+The project transforms raw production downtime data into an interactive dashboard that helps management monitor operational performance, identify recurring downtime causes, and understand where production time is being lost.
 
----
+The analysis uses Microsoft Excel, including data cleaning, formulas, PivotTables, PivotCharts, KPIs, and interactive dashboard features.
 
-## 📌 Project Overview
+## 🎯 Business Problem
 
-A soda bottling line logs every batch it runs (product, operator, start/end time) and every minute of downtime against 12 possible causes (machine failure, batch change, inventory shortage, etc.). The raw exports are messy and split across five files with no relationship between them beyond a shared batch ID.
+Production downtime can reduce output, increase operating costs, delay production schedules, and affect overall manufacturing efficiency.
 
-This project builds a single Excel workbook that:
-- Cleans and reconciles the five source files into two tidy fact tables
-- Calculates 38 KPIs covering production time, downtime, efficiency, and root causes
-- Summarizes the data through six PivotTable-style breakdowns (by cause, operator, product, and day)
-- Visualizes the findings on a one-page executive dashboard
-- Translates the numbers into 11 prioritized, actionable business recommendations
+Management needs a simple way to answer questions such as:
 
-Every figure in the workbook — KPIs, tables, charts, and even the insight sentences — is a **live formula**. Nothing is hard-coded, so the whole workbook recalculates if the source data changes.
+- How much production downtime occurred?
+- Which downtime reasons occur most frequently?
+- Which machines or production lines experience the most downtime?
+- When does downtime occur most often?
+- Which downtime categories have the greatest impact?
+- How can downtime be reduced?
 
-## 🎯 Business Questions Answered
+This dashboard provides a centralized view of these operational indicators.
 
-- How much production time is lost to downtime, and what would fixing it be worth?
-- Which downtime causes matter most, and how many causes drive 80% of the loss?
-- How much of the downtime is operator-controllable vs. equipment/materials?
-- Do operators or products differ meaningfully in performance?
-- What's the realistic upside of a targeted improvement effort?
+## 🎯 Project Objectives
+
+The main objectives of this project are to:
+
+- Analyze production downtime patterns
+- Identify the most common causes of downtime
+- Measure total downtime duration
+- Compare downtime across production lines or machines
+- Identify periods with higher downtime
+- Create interactive KPIs for management reporting
+- Provide data-driven insights that can support operational decision-making
 
 ## 🗂️ Dataset
 
-Five CSV exports from the line's production and downtime logs:
+The project uses production downtime records containing information about production activities and downtime events.
 
-| File | Contents |
+Typical fields analyzed include:
+
+| Field | Description |
 |---|---|
-| `line-productivity.csv` | One row per batch: date, product, operator, start/end time |
-| `line-downtime.csv` | Downtime minutes per batch, one column per cause (wide format) |
-| `products.csv` | Product reference table: flavor, size, standard (minimum) batch time |
-| `downtime-factors.csv` | Downtime cause reference table, flagged operator error yes/no |
-| `metadata.csv` | Field definitions for the source files |
+| Date | Date of the production activity |
+| Production Line | Production line where the event occurred |
+| Machine | Machine associated with the event |
+| Downtime Reason | Reason for the downtime |
+| Downtime Category | Classification of the downtime |
+| Start Time | Time downtime started |
+| End Time | Time downtime ended |
+| Downtime Duration | Duration of downtime |
+| Shift | Production shift |
 
-**Known data issues, all handled in the workbook** (see the `Cleaning_Log` tab for full detail):
-- Inconsistent delimiters across files (pipe vs. comma)
-- A duplicate header row embedded inside the downtime data
-- Wide-format downtime table that needed unpivoting into a tidy structure
-- A midnight-crossing batch with a corrupted end-timestamp
-- 7 batches present in the downtime log with no matching production record (excluded from KPIs, kept and flagged in the raw table)
+## 🧹 Data Preparation
 
-## 🛠️ Built With
+Before creating the dashboard, the dataset was reviewed and prepared for analysis.
 
-- **Microsoft Excel** — formulas (`INDEX/MATCH`, `SUMIFS`, `COUNTIFS`, `RANK`), native Tables, conditional formatting, combo charts
-- **Python (pandas)** — used during development to independently verify every KPI and reconciliation check before finalizing the Excel formulas
+The preparation process included:
 
-## 📊 Workbook Structure
+- Checking column names
+- Checking data types
+- Identifying blank values
+- Identifying inconsistent values
+- Checking duplicate records
+- Standardizing categorical values
+- Validating downtime duration
+- Creating analysis-ready fields
+- Ensuring dates and times were correctly formatted
 
-| Sheet | Purpose |
+This step helped ensure that the dashboard calculations were based on consistent data.
+
+## 📐 Analysis
+
+The analysis focused on several operational areas.
+
+**1. Total Downtime**
+Measures the overall amount of production time lost due to downtime events.
+
+**2. Downtime Events**
+Counts the number of recorded downtime incidents.
+
+**3. Average Downtime**
+Measures the average duration of downtime events.
+
+**4. Downtime by Reason**
+Identifies the causes responsible for the largest amount of downtime.
+
+**5. Downtime by Production Line**
+Compares operational performance across production lines.
+
+**6. Downtime by Machine**
+Identifies machines associated with higher downtime.
+
+**7. Downtime Trend**
+Analyzes how downtime changes over time.
+
+**8. Downtime by Shift**
+Compares downtime performance across production shifts.
+
+## 📌 Key Performance Indicators
+
+The dashboard includes key operational KPIs such as:
+
+- Total Downtime
+- Total Downtime Events
+- Average Downtime
+- Maximum Downtime
+- Most Frequent Downtime Reason
+- Highest-Downtime Production Line
+- Highest-Downtime Machine
+
+These KPIs provide a quick overview of production performance.
+
+## Dashboard Features
+
+The interactive dashboard contains:
+
+**KPI Cards**
+Provides an immediate summary of important production metrics.
+
+**Downtime Trend**
+Shows how downtime changes over time.
+
+**Downtime by Reason**
+Highlights the major causes of production interruptions.
+
+**Downtime by Production Line**
+Compares downtime across production lines.
+
+**Downtime by Machine**
+Shows machines associated with downtime.
+
+**Downtime by Shift**
+Provides a shift-level comparison.
+
+**Interactive Filters**
+Users can filter the dashboard based on available dimensions such as:
+
+- Date
+- Production Line
+- Machine
+- Shift
+- Downtime Category
+- Downtime Reason
+
+## 🛠️ Tools & Technologies
+
+| Tool | Purpose |
 |---|---|
-| `Dashboard` | One-page summary: 6 KPI cards, 4 charts, key-insights strip |
-| `Insights` | 11 findings with recommended actions, priority ranking, and data caveats |
-| `KPIs` | 38 KPIs with definitions, organized by theme, plus an editable what-if scenario |
-| `Pivot_Tables` | 6 breakdowns: Pareto by cause, operator-error split, by operator, by product, daily trend, cause × operator heat-map |
-| `Clean_Data` | Cleaned fact table — one row per batch (Excel Table) |
-| `Downtime_Long` | Cleaned, unpivoted downtime records — one row per batch × cause (Excel Table) |
-| `Lookups` | Product and downtime-cause reference tables |
-| `Cleaning_Log` | Every data issue found, the fix applied, and 8 live validation checks |
-| `Data_Dictionary` | Field-level documentation for every column in the model |
+| Microsoft Excel | Data analysis and dashboard development |
+| Excel Tables | Structured data management |
+| Excel Formulas | Calculations and data transformation |
+| PivotTables | Data aggregation and analysis |
+| PivotCharts | Data visualization |
+| Slicers | Interactive filtering |
+| Conditional Formatting | Highlighting important values |
 
-## 🔎 Key Insights
+## 📈 Business Insights
 
-- Downtime consumes **35.5%** of production time (1,130 of 3,180 minutes across 31 batches), holding line efficiency to **64.5%**.
-- Just **5 of 12** downtime causes account for **80%** of lost time — led by machine failure, inventory shortage, and machine adjustment.
-- **51.6%** of downtime is operator-controllable, with a clear performance gap between the highest- and lowest-downtime operators.
-- Downtime rates are consistent across products (32%–36%), pointing to line-wide process issues rather than a single problem product.
-- A modeled improvement scenario (cutting operator-error downtime 50% and other downtime 25%) would lift efficiency from 64.5% to ~74.5% — roughly 6–7 extra standard batches of capacity.
+The analysis is designed to help management identify:
 
-*(Full detail, caveats, and recommended actions are in the `Insights` tab.)*
+- The primary sources of production downtime
+- Machines requiring operational attention
+- Production lines experiencing higher downtime
+- Shifts associated with increased downtime
+- Recurring downtime patterns
+- Areas where operational improvements may be considered
 
-## 📁 Repository Contents
+These insights can support maintenance planning, production scheduling, and continuous improvement initiatives.
+
+## 💡 Recommendations
+
+Based on the type of analysis performed, management can consider:
+
+**1. Prioritize Major Downtime Causes**
+Focus maintenance and operational improvement efforts on the causes contributing the largest amount of downtime.
+
+**2. Monitor High-Downtime Machines**
+Machines consistently associated with high downtime should receive closer monitoring and preventive maintenance attention.
+
+**3. Review Production Shifts**
+Where the data indicates meaningful differences between shifts, management can investigate staffing, maintenance, operating procedures, and workload differences.
+
+**4. Track Downtime Continuously**
+The dashboard can be updated regularly to monitor whether corrective actions are reducing downtime.
+
+**5. Use Preventive Maintenance**
+Historical downtime patterns can help maintenance teams identify equipment that may require more frequent inspection.
+
+## 📸 Dashboard Preview
+
+Add your dashboard screenshot to the repository and display it here:
+
+![Soda Line Downtime Dashboard](images/dashboard.png)
+
+## 📁 Project Structure
 
 ```
-├── Soda_Line_Downtime_Dashboard.xlsx   # the full workbook
-├── /data                               # raw source CSVs
-└── /readme_assets                      # preview images used in this README
+Soda-Line-Downtime-Dashboard/
+│
+├── README.md
+│
+├── Soda_Line_Downtime_Dashboard.xlsx
+│
+├── images/
+│   └── dashboard.png
+│
+└── documentation/
+    └── project_documentation.md
 ```
 
-## 🚀 How to Use
+## 🚀 How to Use the Project
 
-1. Download `Soda_Line_Downtime_Dashboard.xlsx` and open it in Excel (Excel 2016+ recommended for full chart/formula support).
-2. Start on the `Dashboard` tab for the executive summary.
-3. Drill into `Pivot_Tables` and `KPIs` for supporting detail, and `Insights` for recommendations.
-4. To try the what-if scenario, edit the two yellow input cells at the bottom of the `KPIs` tab — every dependent figure recalculates automatically.
-5. To trace how any number was built, check `Cleaning_Log` (data fixes and validation) and `Data_Dictionary` (field definitions).
+1. Download the Excel workbook.
+2. Open `Soda_Line_Downtime_Dashboard.xlsx`.
+3. Navigate to the dashboard sheet.
+4. Use the available slicers and filters.
+5. Explore the KPI cards and visualizations.
+6. Analyze downtime by reason, machine, production line, shift, and date.
+7. Review the underlying PivotTables and calculations where required.
 
-## ⚠️ Limitations
+## 📚 Skills Demonstrated
 
-- Small sample: 31 batches across 5 production days and 4 operators — operator/product comparisons are directional, not statistically conclusive.
-- Comparisons are not adjusted for product mix, shift timing, or equipment condition.
-- The what-if scenario's improvement percentages are illustrative assumptions, not derived targets — replace them with agreed goals before using for planning.
+This project demonstrates practical skills in:
 
----
+- Data Cleaning
+- Data Analysis
+- Excel Formulas
+- PivotTables
+- PivotCharts
+- KPI Development
+- Dashboard Design
+- Data Visualization
+- Business Intelligence
+- Operational Analysis
+- Business Problem Solving
+- Data-Driven Decision Making
 
-*Built as part of a data analytics portfolio project — data cleaning, KPI design, and dashboarding in Excel.*
+## 👨‍💻 Author
+
+**Ibraheem Sule**
+Senior Business Intelligence Developer|Power BI, Microsoft Fabric, SQL, Snowflake & Azure|Turning enterprise data into actionable insights
+
+This project is part of my portfolio demonstrating practical applications of data analysis and business intelligence using Microsoft Excel.
