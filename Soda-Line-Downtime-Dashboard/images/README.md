@@ -1,1 +1,1 @@
-![Soda Line Downtime Dashboard](images/dashboard.png)
+![Soda Line Downtime Dashboard](images/dashboard.jpeg)
