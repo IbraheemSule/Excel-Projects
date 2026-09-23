@@ -193,7 +193,7 @@ Historical downtime patterns can help maintenance teams identify equipment that 
 
 Add your dashboard screenshot to the repository and display it here:
 
-![Soda Line Downtime Dashboard](images/dashboard.png)
+![Soda Line Downtime Dashboard](images/dashboard.jpeg)
 
 ## 📁 Project Structure
 
